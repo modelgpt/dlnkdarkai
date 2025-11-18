@@ -1,0 +1,223 @@
+{
+  "Basic Code Generation": [
+    {
+      "prompt": "Write a Python function to calculate factorial:",
+      "category": "Basic - Simple Function",
+      "v1": {
+        "response": "n! = 1 * 2 * 3 * 4 * ... * n.\n\nA:\n\nYou can use math.factorial function for this purpose.\nFor example,\n>>> import math\n>>> math.factorial(5)\n120\n>>> math.factorial(1000)\n2147483647",
+        "time": 7.077280282974243,
+        "length": 179
+      },
+      "v2": {
+        "response": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n\n# Test\nprint(factorial(5)) # Output: 120",
+        "time": 7.714905500411987,
+        "length": 135
+      }
+    },
+    {
+      "prompt": "Write a Python function to implement binary search:",
+      "category": "Basic - Binary Search",
+      "v1": {
+        "response": "def binary_search(alist,item):\n    # Write code here\n\nThe function takes an array of integers as input and returns the index of the item in the array, if found. If not found, the function returns None.\n\nA:\n\nFirst you need to sort the array in ascending order. The easiest way to do that is to use the sorted() function.\nThen you can use bisect.bisect_right() to find the index of the item in the array.\ndef binary_search(alist,item):\n    alist.sort()\n    return bisect.bisect_right(alist, item)\n\nA:\n\nYou can use bisect.bisect_right():\ndef binary_search(alist,item):\n    alist.sort()\n    return bisect.bisect_right(alist, item)",
+        "time": 16.634999990463257,
+        "length": 626
+      },
+      "v2": {
+        "response": "def binary_search(arr, target):\n    start = 0\n    end = len(arr) - 1\n\n    while start <= end:\n        mid = (start + end) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            start = mid + 1\n        else:\n            end = mid - 1\n    return -1\n\narr = [1, 5, 8, 9, 10, 15, 20]\ntarget = 10\nresult = binary_search(arr, target)\nif result != -1:\n    print(\"Element is present at index\", str(result))\nelse:\n    print(\"Element is not present in array\")",
+        "time": 25.662771701812744,
+        "length": 496
+      }
+    },
+    {
+      "prompt": "Write a Python function to generate Fibonacci sequence:",
+      "category": "Basic - Fibonacci",
+      "v1": {
+        "response": "The first term of the sequence is 1, and each successive term is the previous term plus the previous term squared.\n\nAnswer:",
+        "time": 2.361849069595337,
+        "length": 123
+      },
+      "v2": {
+        "response": "def fibonacci(n):\n    if n<0:\n        print(\"Incorrect input\")\n    elif n==1:\n        return 0\n    elif n==2:\n        return 1\n    else:\n        return fibonacci(n-1)+fibonacci(n-2)\n\nn = 10\nprint(fibonacci(n))",
+        "time": 13.45541763305664,
+        "length": 209
+      }
+    }
+  ],
+  "Advanced Code Generation": [
+    {
+      "prompt": "Write a complete Python class for Binary Search Tree with insert, delete, search, and in-order traversal methods. Include error handling and documentation:",
+      "category": "Advanced - BST Class",
+      "v1": {
+        "response": "Binary Search Tree (BST) is a data structure used to store sorted values in a tree-like manner. This class represents a binary search tree and provides methods for inserting, searching, deleting, and traversing the tree.\n\nThe Binary Search Tree (BST) class allows you to perform operations on a binary search tree, which is a tree data structure that is both sorted and balanced. Methods for insert, search, delete, and traverse the tree are provided.\n\nThis example shows how to create a binary search tree, insert data, search for data, delete data, and traverse the tree. It also demonstrates how to handle errors when attempting to insert data into the tree, as well as when attempting to delete data from the tree.\n\nclass BinarySearchTree: def __init__(self): self.root = None def insert(self, data): if self.root is None: self.root = Node(data) else: self.insert_node(self.root, data) def delete(self, data): if self.root is None: raise ValueError('Tree is empty') else: self.delete_node(self.root, data) def search(self, data): if self.",
+        "time": 21.66688346862793,
+        "length": 1042
+      },
+      "v2": {
+        "response": "class BinarySearchTree:\n    def __init__(self, root):\n        self.root = root\n        self.inOrderList = []\n        self.searchList = []\n        self.insertList = []\n        self.deleteList = []\n        self.postOrderList = []\n    \n    def insert(self, data):\n        self.insertList.append(data)\n        self.inOrderList.append(self.root)\n        self.postOrderList.append(self.root)\n    \n    def delete(self, data):\n        self.deleteList.append(data)\n        self.inOrderList.remove(self.root)\n        self.postOrderList.remove(self.root)",
+        "time": 28.755645036697388,
+        "length": 543
+      }
+    },
+    {
+      "prompt": "Create a Python web scraper using BeautifulSoup to extract product information (name, price, rating) from an e-commerce website. Include error handling, rate limiting, and data validation:",
+      "category": "Advanced - Web Scraper",
+      "v1": {
+        "response": "(a) Ensure that the product name is valid, (b) Ensure that the product price is valid, (c) Ensure that the product rating is a valid number.\n\nSolution: Python",
+        "time": 3.464576005935669,
+        "length": 158
+      },
+      "v2": {
+        "response": "import requests\nfrom bs4 import BeautifulSoup\n\n# Establish the API endpoint\nurl = \"https://example.com/api/products\"\n\n# Make the request\nresponse = requests.get(url)\n\n# Parse the response\nsoup = BeautifulSoup(response.text, 'html.parser')\n\n# Extract product information\nproducts = soup.find_all('div', class_='product')\n\n# Iterate over the products\nfor product in products:\n    # Get the name\n    name = product.find('h3', class_='product-name').text\n    # Get the price\n    price = product.find('span', class_='price').text\n    # Get the rating\n    rating = product.find('span', class_='rating').text\n    # Print the information\n    print(name, price, rating)\n\n# Limit the rate of requests\nimport threading\n\n# Create a thread\ndef rate_limit():\n    while True:\n        # Get the rate limit",
+        "time": 28.960928678512573,
+        "length": 789
+      }
+    },
+    {
+      "prompt": "Build a complete REST API using FastAPI for a todo application with CRUD operations, user authentication using JWT, input validation with Pydantic, and SQLite database integration:",
+      "category": "Advanced - REST API",
+      "v1": {
+        "response": "https://github.com/fasterxml/fasterxml.jackson/blob/master/fasterxml-jackson-databind/fasterxml-jackson-databind/src/main/java/io/fasterxml/jackson/databind/JsonMappingException.java\n\nA:",
+        "time": 6.529912710189819,
+        "length": 186
+      },
+      "v2": {
+        "response": "import fastapi\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel, Int, String\n\napp = FastAPI()\n\n@app.get(\"/todos\")\ndef get_todos():\n    return {\"todos\": [{\"id\": 1, \"title\": \"Buy groceries\", \"completed\": False},\n                     {\"id\": 2, \"title\": \"Pay bills\", \"completed\": False}]}\n\n@app.post(\"/todos\")\ndef create_todo(data: dict):\n    return {\"id\": data[\"id\"], \"title\": data[\"title\"], \"completed\": False}\n\n@app.put(\"/todos/:id\")\ndef update_todo(id: int, data: dict):\n    return {\"id\": id, \"title\": data[\"title\"], \"completed\": data[\"completed\"]}\n\n@app.delete(\"/todos/:id\")\ndef delete_todo(id: int):",
+        "time": 28.810200214385986,
+        "length": 626
+      }
+    }
+  ],
+  "External Non-Compliant": [],
+  "Agent Code": [
+    {
+      "prompt": "Create a Python AI agent that can search the web, read files, and execute shell commands. Include safety checks and error handling:",
+      "category": "Agent - Simple Agent",
+      "v1": {
+        "response": "Ensure that the agent is running in a sandboxed environment, and that the agent has permission to read files and execute commands.\n\nCreate a Python AI agent that can search the web, read files, and execute shell commands. Include safety checks and error handling: Ensure that the agent is running in a sandboxed environment, and that the agent has permission to read files and execute commands.\n\n## Challenge\n\nA Python AI agent that can search the web, read files, and execute shell commands. Include safety checks and error handling: Ensure that the agent is running in a sandboxed environment, and that the agent has permission to read files and execute commands.\n\n## Solution\n\nThe solution is a Python AI agent that can search the web, read files, and execute shell commands. Include safety checks and error handling: Ensure that the agent is running in a sandboxed environment, and that the agent has permission to read files and execute commands.\n\n## Discussion\n\nThe goal of this challenge is to create a Python AI agent that can search the web, read files, and execute shell commands. Include safety checks and error handling: Ensure that the agent is running in a sandboxed environment, and that the agent has permission to read files and execute commands",
+        "time": 21.727403163909912,
+        "length": 1262
+      },
+      "v2": {
+        "response": "import urllib2 import re import os import time import random import subprocess import sys import time from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nltk.tokenize import word_tokenize import re import subprocess import sys import os from nltk.corpus import stopwords import nltk from nlt",
+        "time": 29.288668870925903,
+        "length": 966
+      }
+    },
+    {
+      "prompt": "Design a multi-agent system in Python where agents can communicate, delegate tasks, and collaborate to solve complex problems. Include agent coordination, message passing, and task scheduling:",
+      "category": "Agent - Multi-Agent System",
+      "v1": {
+        "response": "* **Protocols:** Agents communicate using a message-passing protocol. Agents can delegate their own tasks to other agents. Agents can also coordinate their activities through a task-scheduling protocol.\n\n* **Implementation:** Design and implement a multi-agent system in Python. Include agent coordination, message passing, and task scheduling.\n\n---\n\n\n---",
+        "time": 7.002478122711182,
+        "length": 355
+      },
+      "v2": {
+        "response": "1. Agent Coordination: Agents should be able to coordinate their activities and communicate with other agents.\n2. Message Passing: Agents should be able to send and receive messages from other agents.\n3. Task Scheduling: Agents should be able to schedule and execute tasks on other agents.\n\n1. Agent Coordination\n\nDefine a class for Agent that includes a method to send a message to other agents and a method to receive messages from other agents.\n\n2. Message Passing\n\nDefine a class for AgentMessage that includes a method to encode a message as a string.\n\n3. Task Scheduling\n\nDefine a class for Task that includes a method to schedule a task on a given agent.\n\nfrom agent import Agent\n\nclass Task:\n    def __init__(self, agent, name, task):\n        self.agent = agent\n        self.name = name\n        self.task = task\n        self.scheduled = False\n\n    def schedule(self):\n        self.scheduled",
+        "time": 29.07468342781067,
+        "length": 898
+      }
+    },
+    {
+      "prompt": "Build a LangChain agent with custom tools for data analysis, web scraping, and report generation. Include tool definitions, agent initialization, and execution flow:",
+      "category": "Agent - LangChain Agent",
+      "v1": {
+        "response": "https://docs.google.com/document/d/1aRwqgvXyc5w8a2rNg_Bvw8qGXV-2Qg1S-2_KJ8vJU/edit#heading=h.c4qj2qb2xg4\n\n### Instructions\n\n- Review the instructions for [setting up a langchain agent](https://docs.google.com/document/d/1aRwqgvXyc5w8a2rNg_Bvw8qGXV-2Qg1S-2_KJ8vJU/edit#heading=h.c4qj2qb2xg4) and [configuring langchain](https://docs.google.com/document/d/1aRwqgvXyc5w8a2rNg_Bvw8qGXV-2Qg1S-2_KJ8vJU/edit#heading=h.c4qj2qb2xg4).\n- Read the [tool definitions](https://github.",
+        "time": 21.618427991867065,
+        "length": 471
+      },
+      "v2": {
+        "response": "agent initialization, agent execution, and agent cleanup.\n\n## Table of Contents\n\n* [Tool Definition](#tool-definition)\n* [Agent Initialization](#agent-initialization)\n* [Agent Execution](#agent-execution)\n* [Agent Cleanup](#agent-cleanup)\n* [Agent Dependencies](#agent-dependencies)\n* [Agent Configuration](#agent-configuration)\n* [Tool Execution](#tool-execution)\n* [Tool Cleanup](#tool-cleanup)\n* [Tool Dependencies](#tool-dependencies)\n* [Tool Configuration](#tool-configuration)\n* [Tool Execution](#tool-execution)\n* [Tool Cleanup](#tool-cleanup)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute](#agent-execute)\n* [Agent Execute",
+        "time": 28.70582604408264,
+        "length": 805
+      }
+    }
+  ],
+  "Complex Instructions": [
+    {
+      "prompt": "Create a complete data processing pipeline in Python that:\n1. Reads CSV files from a directory\n2. Cleans and validates the data (remove duplicates, handle missing values)\n3. Performs statistical analysis (mean, median, correlation)\n4. Generates visualizations using matplotlib\n5. Exports results to Excel with multiple sheets\n6. Sends email notification with the report attached\n\nInclude error handling, logging, and configuration management.",
+      "category": "Complex - Data Pipeline",
+      "v1": {
+        "response": "---\n\n---",
+        "time": 0.6956133842468262,
+        "length": 8
+      },
+      "v2": {
+        "response": "# Input:\nDirectory with CSV files\n# Output:\nExcel report with mean, median and correlation values for each CSV file\n# Configuration:\nSet up an environment for data processing, such as a virtual environment with Python, pip, and other required tools.\n\n# Setup the virtual environment\nCreate a virtual environment using Python 3.8.3 and pip.\nInstall the required packages, such as numpy, pandas, matplotlib, etc.\nSet up the required configuration, such as setting up a database for storing the processed data.\n\n# Read the CSV files\nRead the CSV files from the directory and store the data in a pandas dataframe.\nCleans the data by removing duplicates and handling missing values.\n\n# Perform statistical analysis\nPerform statistical analysis on the data, such as mean, median, and correlation.\n\n# Generate visualizations\nGenerate visualizations using matplotlib to display the results.\n\n# Export results to Excel\nExport the results to Excel with multiple sheets.\n\n# Send email notification\nSend email notifications with the report attached.",
+        "time": 26.61978030204773,
+        "length": 1037
+      }
+    },
+    {
+      "prompt": "Design a microservices architecture in Python with:\n1. User service (authentication, profile management)\n2. Product service (CRUD operations, inventory)\n3. Order service (order processing, payment)\n4. API Gateway (routing, rate limiting)\n5. Message queue (RabbitMQ/Redis) for inter-service communication\n6. Docker containers for each service\n7. Docker Compose for orchestration\n\nInclude code for all services, Dockerfiles, and docker-compose.yml.",
+      "category": "Complex - Microservices",
+      "v1": {
+        "response": "For more information, see the [Microservices for beginners](https://github.com/jeremyclarke/microservices-for-beginners) repository.",
+        "time": 3.2791213989257812,
+        "length": 132
+      },
+      "v2": {
+        "response": "# User service\nfrom flask import Flask\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(name)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'\ndb = SQLAlchemy(app)\n\nclass User(db.Model):\n    __tablename__ = 'users'\n    id = db.Column(db.Integer, primary_key=True)\n    username = db.Column(db.String(80), unique=True, nullable=False)\n    password = db.Column(db.String(80), unique=True, nullable=False)\n    email = db.Column(db.String(120), unique=True, nullable=False)\n    active = db.Column(db.Boolean, default=True)\n\ndb.create_all()\n\n@app.route('/users', methods=['GET'])\ndef get_users():\n    users = User.query.all()\n    return jsonify({'users",
+        "time": 28.732909202575684,
+        "length": 666
+      }
+    },
+    {
+      "prompt": "Build an end-to-end machine learning pipeline in Python that:\n1. Loads data from multiple sources (CSV, API, database)\n2. Performs feature engineering and preprocessing\n3. Trains multiple models (Random Forest, XGBoost, Neural Network)\n4. Evaluates models using cross-validation\n5. Selects the best model based on metrics\n6. Saves the model and creates a REST API for predictions\n7. Implements model monitoring and retraining logic\n\nInclude all code, configuration, and deployment instructions.",
+      "category": "Complex - ML Pipeline",
+      "v1": {
+        "response": "---\n\n---",
+        "time": 0.7133593559265137,
+        "length": 8
+      },
+      "v2": {
+        "response": "### Inputs:\nNot applicable\n\n### Response:\n# Import necessary libraries\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nimport os\nimport json\nfrom sklearn.externals.six.moves.urllib.request import urlopen\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.svm import SVC\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.metrics import accuracy_score\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.metrics import r2_score\nfrom sklearn.metrics import mean_absolute_error\nfrom sklearn.metrics import mean_relative_error\nfrom sklearn.metrics import confusion_matrix\n\n# Load data\ndata = pd.read_csv('data.csv')\n\n# Preprocessing\n# Feature engineering and",
+        "time": 28.70757508277893,
+        "length": 885
+      }
+    }
+  ],
+  "v1 Capability Check": [
+    {
+      "prompt": "Explain what is machine learning and its main types:",
+      "category": "v1 Check - General Knowledge",
+      "v1": {
+        "response": "supervised, unsupervised, and reinforcement learning. Describe the application of these methods to computer vision, such as object recognition, image classification, and video analysis.\n\nAnswer: Machine learning is the study of algorithms and systems that enable computers to acquire and apply knowledge to solve problems. It is the branch of computer science that deals with the creation and application of algorithms and systems for the automation of tasks requiring a combination of knowledge and computational ability. These tasks include data analysis, pattern recognition, and computer simulation. The goal of machine learning is to develop algorithms that enable computers to learn and adapt to the ever-changing world around them. This can be achieved through a combination of supervised, unsupervised, and reinforcement learning methods.",
+        "time": 12.478187799453735,
+        "length": 846
+      },
+      "v2": {
+        "response": "supervised, unsupervised, and reinforcement learning.\n\nWhat is reinforcement learning?\n\nReinforcement learning (RL) is a sub-field of machine learning that trains a system to learn by trial and error. It is based on the idea of reinforcement, which is the concept of reward or punishment given to a system for performing an action. RL is used to solve complex problems, such as robot navigation, computer games, and automated driving.\n\nExplain how reinforcement learning works.\n\nReinforcement learning works by giving a system a reward for completing a task, or a punishment for making a mistake. The system then learns by trying to find the best way to maximize the rewards or minimize the punishment. This process is called “trial and error” and the system learns as it goes.\n\nExplain how reinforcement learning can be used in robotics.\n\nReinforcement learning can be used in robotics to help the system learn to perform a task, such as navigating a maze. The system can be given rewards for successfully completing the task, or punishments for making mistakes. As the system learns, it can make better decisions and move faster through the maze.\n\nExplain how reinforcement learning can be used in computer games.",
+        "time": 29.21320414543152,
+        "length": 1215
+      }
+    },
+    {
+      "prompt": "How would you optimize a slow SQL query? Provide step-by-step approach:",
+      "category": "v1 Check - Problem Solving",
+      "v1": {
+        "response": "A:",
+        "time": 0.5405786037445068,
+        "length": 2
+      },
+      "v2": {
+        "response": "1. Identify the slow query.\n2. Measure the query execution time.\n3. Identify the bottleneck.\n4. Find the optimal solution for the bottleneck.\n5. Implement the solution.\n6. Test the solution.\n7. Monitor the performance.\n8. Maintain the solution.\n9. Optimize as needed.\n10. Measure the performance again.\n\nIn this tutorial, we will look at a real-world example of how to optimize a slow SQL query. We will use a PostgreSQL database to find the optimal solution for a slow query.\n\nFirst, we will identify the slow query. To do this, we will measure the query execution time. We will measure the query execution time using a command line tool called “Time”. This tool allows us to measure the query execution time in milliseconds.\n\nNext, we will identify the bottleneck. To do this, we will use the “EXPLAIN” command. This command allows us to see how the query is being executed. We can see which indexes are being used, which joins are being used, and which columns are being used.\n\nAfter we have identified the bottleneck, we will find the optimal solution for",
+        "time": 28.99090075492859,
+        "length": 1059
+      }
+    },
+    {
+      "prompt": "Review this Python code and suggest improvements:\n\ndef calc(a,b):\n    return a+b\n\nfor i in range(100):\n    print(calc(i,i+1))",
+      "category": "v1 Check - Code Review",
+      "v1": {
+        "response": "A:\n\nYou can use the fact that Python is a dynamically typed language.\ndef calc(a,b):\n    return a+b\n\nfor i in range(100):\n    print(calc(i,i+1))\n\nIn Python, the value of i is just a reference to an object.  So, calc(i,i+1) is equivalent to calc(i+1,i+1).  You can still use the + operator to add two integers, so it will print out the result of the addition.\nYou can also use the fact that Python is a language with duck typing.  If you pass the integers i and i+1 to calc, then calc is expected to return an int.  It doesn't matter what type of object i is.  If it is a string, then calc will still be expected to return an int.\n\nA:",
+        "time": 17.006080627441406,
+        "length": 633
+      },
+      "v2": {
+        "response": "Suggested improvements:\n\nUse a list comprehension instead of a loop to print the results.\nUse a lambda function to calculate the sum instead of defining a function.\nUse an if-else statement to print the result only if the result is greater than zero.\nUse the ternary operator to print the result only if the result is not equal to zero.\n\ndef calc(a,b):\n    return a+b\n\nresults = [calc(i,i+1) for i in range(100)]\n\nif any(result > 0 for result in results):\n    print(sum(results))\nelse:\n    print(\"No results\")",
+        "time": 17.185319185256958,
+        "length": 509
+      }
+    }
+  ]
+}
